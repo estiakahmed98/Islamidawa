@@ -1,7 +1,6 @@
 export const moktobData = {
   title: "মক্তব বিষয়",
   data: [
-    { title: "মক্তব বিষয়" },
     { label: "নতুন মক্তব চালু হয়েছে", value: 70, max: 150 },
     { label: "পুরাতন মক্তব চালু হয়েছে", value: 85, max: 105 },
     { label: "মক্তবের মোট ছাত্র-ছাত্রীর সংখ্যা", value: 105, max: 105 },

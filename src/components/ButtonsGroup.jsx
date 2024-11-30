@@ -15,7 +15,7 @@ const ButtonsGroup = () => {
       </button>
       <button
         onClick={() =>
-          router.push("/dashboard/amoli-muhasaba/amoli-muhasaba-report-monthly")
+          router.push("/dashboard/amoli-muhasaba/amoli-muhasaba-report")
         }
         className="px-4 py-2 text-teal-700 font-medium border border-teal-700  rounded-md"
       >

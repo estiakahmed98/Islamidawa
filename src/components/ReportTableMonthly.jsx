@@ -127,8 +127,8 @@ const ReportTable = () => {
   ];
 
   return (
-    <div className="overflow-x-auto pt-4 grow">
-      <h1 className="flex justify-center font-bold text-2xl p-2">
+    <div className="overflow-x-auto grow">
+      <h1 className="flex justify-center p-2 font-bold text-2xl">
         Monthly Report
       </h1>
       <table className="table-auto border-collapse border border-gray-300 w-full text-xl">

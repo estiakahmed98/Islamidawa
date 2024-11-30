@@ -18,8 +18,8 @@ const TalimDonutChart = ({
   startAngle = 90,
   endAngle = 450,
   mainTitle = "তালিম বিষয়",
-  chart1Title = "তালিম ১",
-  chart2Title = "তালিম ২",
+  chart1Title = "মহিলা তালিম",
+  chart2Title = "পুরুষ তালিম",
 }) => {
   return (
     <div className=" w-full rounded-lg bg-white shadow-lg border border-gray-200 grow">
@@ -32,7 +32,7 @@ const TalimDonutChart = ({
       <div className=" grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Chart 1 */}
         <div className="rounded-lg bg-gray-50 shadow-sm ">
-          <h3 className="text-xl font-semibold text-gray-700 text-center mb-4">
+          <h3 className="text-xl font-semibold text-gray-700 text-center p-4">
             {chart1Title}
           </h3>
           <ResponsiveContainer width="100%" height={350}>
@@ -59,7 +59,7 @@ const TalimDonutChart = ({
 
         {/* Chart 2 */}
         <div className="rounded-lg bg-gray-50 shadow-sm">
-          <h3 className="text-xl font-semibold text-gray-700 text-center mb-4">
+          <h3 className="text-xl font-semibold text-gray-700 text-center p-4">
             {chart2Title}
           </h3>
           <ResponsiveContainer width="100%" height={350}>
