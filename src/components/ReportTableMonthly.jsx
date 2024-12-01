@@ -127,10 +127,7 @@ const ReportTable = () => {
   ];
 
   return (
-    <div className="overflow-x-auto grow">
-      <h1 className="flex justify-center p-2 font-bold text-2xl">
-        Monthly Report
-      </h1>
+    <div className="overflow-x-auto p-2 grow">
       <table className="table-auto border-collapse border border-gray-300 w-full text-xl">
         <thead>
           <tr className="bg-gray-200">

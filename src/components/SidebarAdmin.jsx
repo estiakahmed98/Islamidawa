@@ -7,6 +7,7 @@ import { FcAcceptDatabase } from "react-icons/fc";
 import { LuArrowLeftFromLine } from "react-icons/lu";
 import { LuArrowRightToLine } from "react-icons/lu";
 import { LuLayoutDashboard } from "react-icons/lu";
+import Link from "next/link";
 
 import { usePathname } from "next/navigation"; // Use usePathname for the App Router
 
@@ -41,12 +42,12 @@ const SidebarAdmin = () => {
 
       <nav className="p-4 grow overflow-y-auto overflow-x-hidden">
         <ul className="space-y-2">
-          <a
-            href="/dashboard"
+          <Link
+            href="/admin"
             className={`flex py-2 px-2 items-center font-medium ${
               isCollapsed ? "gap-0" : "gap-3"
             } whitespace-nowrap ${
-              isActive("/dashboard")
+              isActive("/admin")
                 ? "bg-cyan-600 rounded-md w-full text-white"
                 : "hover:text-white text-white/80"
             }`}
@@ -57,65 +58,63 @@ const SidebarAdmin = () => {
             <li className={`text-sm ${isCollapsed ? "hidden" : "block"}`}>
               ড্যাশবোর্ড
             </li>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/admin/register"
             className={`flex py-2 px-2 items-center font-medium ${
               isCollapsed ? "gap-0" : "gap-3"
             } whitespace-nowrap ${
-              isActive("/amoli-muhasaba")
+              isActive("/admin/register")
                 ? "bg-cyan-600 rounded-md w-full text-white"
                 : "hover:text-white text-white/80"
             }`}
           >
             <div>
-              <IoPersonAddSharp className="size-5"/>
-
+              <IoPersonAddSharp className="size-5" />
             </div>
 
             <li className={`text-sm mb-0 ${isCollapsed ? "hidden" : "block"}`}>
-              দায়ী এড করা 
+              দায়ী এড করা
             </li>
-          </a>
+          </Link>
 
-          <a
-            href="moktob"
+          <Link
+            href="/admin/users"
             className={`flex py-2 px-2 items-center font-medium ${
               isCollapsed ? "gap-0" : "gap-3"
             } whitespace-nowrap ${
-              isActive("/moktob")
+              isActive("#")
                 ? "bg-cyan-600 rounded-md w-full text-white"
                 : "hover:text-white text-white/80"
             }`}
           >
             <div>
-              <MdPeople className="size-5"/>
-
+              <MdPeople className="size-5" />
             </div>
             <li className={`text-sm ${isCollapsed ? "hidden" : "block"}`}>
               দায়ী দেখুন
             </li>
-          </a>
+          </Link>
 
-          <a
-            href="talim"
+          <Link
+            href="#"
             className={`flex py-2 px-2 items-center font-medium ${
               isCollapsed ? "gap-0" : "gap-3"
             } whitespace-nowrap ${
-              isActive("/talim")
+              isActive("#")
                 ? "bg-cyan-600 rounded-md w-full text-white"
                 : "hover:text-white text-white/80"
             }`}
           >
             <div>
-              <FcAcceptDatabase className="size-5"/>
+              <FcAcceptDatabase className="size-5" />
             </div>
 
             <li className={`text-sm ${isCollapsed ? "hidden" : "block"}`}>
               অনুমুতি দিন
             </li>
-          </a>
+          </Link>
         </ul>
       </nav>
     </aside>

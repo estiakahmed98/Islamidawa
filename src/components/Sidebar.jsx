@@ -29,9 +29,9 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`flex sticky flex-col shrink-0 ${
+      className={`flex flex-col shrink-0 ${
         isCollapsed ? "w-[68px]" : "w-52"
-      } transition-width duration-500 h-screen bg-[#155E75] overflow-x-hidden border-t border-slate-700`}
+      } transition-width duration-500 bg-[#155E75] overflow-x-hidden border-t border-slate-700`}
     >
       <div className="p-4 text-right">
         <button

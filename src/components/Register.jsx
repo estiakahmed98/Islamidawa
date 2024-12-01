@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import LocationDropdown from "./LocationDropdown";
 
 export default function Register() {
   let router = useRouter();
@@ -10,7 +11,7 @@ export default function Register() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
 
-    // console.log(data)
+    console.log(data);
 
     // return
     const response = await fetch("/api/register", {
@@ -21,19 +22,17 @@ export default function Register() {
       },
     });
     if (response.ok) {
-      router.push("/admin");
+      router.push("/admin/register");
       alert("User created successfully!");
     } else {
-      alert("User created successfully!");
+      alert("User Creation Faild! Try Again!");
     }
   };
 
   return (
     <div className="flex items-center justify-center bg-gray-50 m-10">
       <div className="w-full p-8 space-y-6 shadow-lg rounded-lg">
-        <h2 className="text-lg font-bold text-center">
-          ইসলামি দাওয়াহ ইনস্টিটিউট বাংলাদেশ
-        </h2>
+        <h2 className="text-2xl font-bold text-center">Add Role</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Full Name */}
           <div>
@@ -67,11 +66,21 @@ export default function Register() {
               required
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-              <option value="">Select Role</option>
-              <option value="admin">Admin</option>
+              <option value="" disabled>
+                Select Role
+              </option>
+              <option value="centraladmin">Central Admin</option>
+              <option value="admin">Admin </option>
+              <option value="admin2">Admin 2</option>
+              <option value="admin3">Admin 3</option>
+              <option value="admin4">Admin 4</option>
+              <option value="daye">Daye</option>
               <option value="user">User</option>
-              <option value="guest">Guest</option>
             </select>
+          </div>
+
+          <div>
+            <LocationDropdown />
           </div>
 
           {/* Email */}

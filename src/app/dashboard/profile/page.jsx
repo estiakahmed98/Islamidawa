@@ -1,7 +1,6 @@
 import ShowProfile from "@/components/ShowProfile";
-import React from "react";
 
-const page = () => {
+const Profile = () => {
   return (
     <>
       <ShowProfile />
@@ -9,4 +8,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Profile;

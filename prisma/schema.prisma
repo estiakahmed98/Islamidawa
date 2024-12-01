@@ -15,6 +15,9 @@ model newUser {
   id       Int    @id @default(autoincrement())
   fullName String
   role     String
+  division String
+  district String
+  thana    String
   email    String @unique
   password String
   

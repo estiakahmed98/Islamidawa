@@ -1,36 +1,27 @@
 "use client";
 
-import { useRouter } from "next/navigation"; // Correct import for App Router
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { MdArrowDropDown, MdPerson, MdLogout } from "react-icons/md";
+import ShowProfile from "./ShowProfile";
+import Link from "next/link";
 
 const ProfileToggol = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null); // State to store user data
+  const [user, setUser] = useState(null);
 
-  // Fetch user data from API
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch("/api/login"); // Adjust the API route if necessary
-        if (response.ok) {
-          const data = await response.json();
-          setUser(data[0]); // Assuming you want the first user (or adjust for logged-in user)
-        } else {
-          alert("Failed to fetch user data");
-        }
-      } catch (error) {
-        alert("Error fetching user:", error);
-      }
-    };
-
-    fetchUser();
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
   }, []);
 
-  const handleNavigation = () => {
-    router.push("/login"); // Navigate to login
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    router.push("/login");
   };
 
   return (
@@ -43,13 +34,15 @@ const ProfileToggol = () => {
           <FaUserCircle className="text-white w-5 h-5 sm:w-6 sm:h-6" />
         </div>
 
-        {/* Dynamically Display User Data */}
         <div className="flex flex-col">
           <p className="font-bold text-[8px] sm:text-sm md:text-base">
-            {user ? user.fullName : "Working"}
+            {user ? user.name : "Guest"}
           </p>
           <p className="text-[6px] font-semibold sm:text-xs md:text-sm text-gray-900">
-            {user ? `ID: ${user.id}` : "Loading"}
+            {user ? `ID : 100${user.id}` : "Loading"}
+          </p>
+          <p className="text-[6px] font-semibold sm:text-xs md:text-sm text-gray-900">
+            {user ? `Role: ${user.role}` : "Loading"}
           </p>
         </div>
 
@@ -60,16 +53,16 @@ const ProfileToggol = () => {
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-[#155E75] shadow-lg rounded-md text-sm">
-          <div
+          <Link
             className="flex items-center px-4 py-2 hover:bg-[#2284a1] cursor-pointer"
-            onClick={() => alert("Navigate to Profile")}
+            href="/dashboard/profile"
           >
             <MdPerson className="mr-2" />
             Profile
-          </div>
+          </Link>
           <div
             className="flex items-center px-4 py-2 hover:bg-[#2284a1] cursor-pointer"
-            onClick={handleNavigation}
+            onClick={handleSignOut}
           >
             <MdLogout className="mr-2" />
             Sign Out
