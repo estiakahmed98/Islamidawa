@@ -51,8 +51,8 @@ const Dashboard = () => {
             <TalimDonutChart
               data1={TalimDonutChartData1}
               data2={TalimDonutChartData2}
-              innerRadius={60}
-              outerRadius={100}
+              innerRadius={50}
+              outerRadius={90}
               startAngle={90}
               endAngle={450}
             />

@@ -42,16 +42,16 @@ export default function LoginForm() {
           case "daye":
             router.push("/dashboard");
             break;
-          case "admin":
+          case "divisionadmin":
             router.push("/admin");
             break;
-          case "admin2":
+          case "districtadmin":
             router.push("/admin");
             break;
-          case "guest3":
+          case "areaadmin":
             router.push("/admin");
             break;
-          case "admin4":
+          case "upozilaadmin":
             router.push("/admin");
             break;
           case "user":
@@ -118,13 +118,13 @@ export default function LoginForm() {
               required
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-              <option value="centraladmin">Central Admin</option>
-              <option value="admin">Admin </option>
-              <option value="admin2">Admin 2</option>
-              <option value="admin3">Admin 3</option>
-              <option value="admin4">Admin 4</option>
-              <option value="daye">Daye</option>
-              <option value="user">User</option>
+              <option value="centraladmin">কেন্দ্রীয় এডমিন</option>
+              <option value="divisionadmin">বিভাগীয় এডমিন </option>
+              <option value="districtadmin">জেলা এডমিন</option>
+              <option value="areaadmin">এলাকার এডমিন</option>
+              <option value="upozilaadmin">উপজেলা এডমিন</option>
+              <option value="daye">দা'ঈ</option>
+              <option value="user">ইউনিয়ন</option>
             </select>
           </div>
 

@@ -34,15 +34,9 @@ const ProfileToggol = () => {
           <FaUserCircle className="text-white w-5 h-5 sm:w-6 sm:h-6" />
         </div>
 
-        <div className="flex flex-col">
+        <div className="p-2">
           <p className="font-bold text-[8px] sm:text-sm md:text-base">
             {user ? user.name : "Guest"}
-          </p>
-          <p className="text-[6px] font-semibold sm:text-xs md:text-sm text-gray-900">
-            {user ? `ID : 100${user.id}` : "Loading"}
-          </p>
-          <p className="text-[6px] font-semibold sm:text-xs md:text-sm text-gray-900">
-            {user ? `Role: ${user.role}` : "Loading"}
           </p>
         </div>
 

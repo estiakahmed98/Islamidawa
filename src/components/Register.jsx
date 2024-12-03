@@ -69,18 +69,52 @@ export default function Register() {
               <option value="" disabled>
                 Select Role
               </option>
-              <option value="centraladmin">Central Admin</option>
-              <option value="admin">Admin </option>
-              <option value="admin2">Admin 2</option>
-              <option value="admin3">Admin 3</option>
-              <option value="admin4">Admin 4</option>
-              <option value="daye">Daye</option>
-              <option value="user">User</option>
+              <option value="centraladmin">কেন্দ্রীয় এডমিন</option>
+              <option value="divisionadmin">বিভাগীয় এডমিন </option>
+              <option value="districtadmin">জেলা এডমিন</option>
+              <option value="areaadmin">এলাকার এডমিন</option>
+              <option value="upozilaadmin">উপজেলা এডমিন</option>
+              <option value="daye">দা'ঈ</option>
+              <option value="user">ইউনিয়ন</option>
             </select>
           </div>
 
           <div>
             <LocationDropdown />
+          </div>
+
+          <div>
+            <label
+              htmlFor="markaz"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Markaz
+            </label>
+            <input
+              type="text"
+              id="markaz"
+              name="markaz"
+              placeholder="Enter your Markaz Name"
+              required
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="phoneNumber"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Mobile Number
+            </label>
+            <input
+              type="number"
+              id="phoneNumber"
+              name="phoneNumber"
+              placeholder="Enter your Phone Number"
+              required
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
           </div>
 
           {/* Email */}

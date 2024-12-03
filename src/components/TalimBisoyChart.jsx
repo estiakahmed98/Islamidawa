@@ -10,6 +10,33 @@ import {
   Tooltip,
 } from "recharts";
 
+const renderCustomLegend = (props) => {
+  const { payload } = props;
+
+  if (!payload || payload.length === 0) {
+    return <p className="text-center text-gray-500">No data available</p>;
+  }
+
+  return (
+    <ul className="flex flex-col space-y-2">
+      {payload.map((entry, index) => (
+        <li
+          key={`legend-item-${index}`}
+          className="flex items-center space-x-2 text-sm font-medium"
+        >
+          {/* Color Indicator */}
+          <div
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: entry.color }}
+          ></div>
+          <span className="text-gray-700">{entry.payload.name}</span>
+          <span className="text-gray-500">({entry.payload.value}%)</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 const TalimDonutChart = ({
   data1,
   data2,
@@ -22,17 +49,17 @@ const TalimDonutChart = ({
   chart2Title = "পুরুষ তালিম",
 }) => {
   return (
-    <div className=" w-full rounded-lg bg-white shadow-lg border border-gray-200 grow">
+    <div className="w-full rounded-lg bg-white shadow-lg border border-gray-200 grow">
       {/* Main Title */}
       <div className="p-6 text-center border-b border-gray-200">
         <h2 className="text-xl font-bold text-gray-800">{mainTitle}</h2>
       </div>
 
       {/* Charts Section */}
-      <div className=" grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
         {/* Chart 1 */}
-        <div className="rounded-lg bg-gray-50 shadow-sm ">
-          <h3 className="text-xl font-semibold text-gray-700 text-center p-4">
+        <div className="rounded-lg bg-gray-50 shadow-sm p-2">
+          <h3 className="text-xl font-semibold text-gray-700 text-center mb-4">
             {chart1Title}
           </h3>
           <ResponsiveContainer width="100%" height={350}>
@@ -52,14 +79,19 @@ const TalimDonutChart = ({
                 ))}
               </Pie>
               <Tooltip />
-              <Legend align="center" verticalAlign="bottom" height={20} />
+              <Legend
+                align="center"
+                verticalAlign="bottom"
+                height={50}
+                content={renderCustomLegend}
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>
 
         {/* Chart 2 */}
-        <div className="rounded-lg bg-gray-50 shadow-sm">
-          <h3 className="text-xl font-semibold text-gray-700 text-center p-4">
+        <div className="rounded-lg bg-gray-50 shadow-sm p-4">
+          <h3 className="text-xl font-semibold text-gray-700 text-center mb-4">
             {chart2Title}
           </h3>
           <ResponsiveContainer width="100%" height={350}>
@@ -79,7 +111,12 @@ const TalimDonutChart = ({
                 ))}
               </Pie>
               <Tooltip />
-              <Legend align="center" verticalAlign="bottom" height={20} />
+              <Legend
+                align="center"
+                verticalAlign="bottom"
+                height={50}
+                content={renderCustomLegend}
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>

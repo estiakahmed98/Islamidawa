@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
+import renderLegend from "./PiechartLegend";
 
 const AmoliChart = ({
   data,
@@ -43,7 +44,12 @@ const AmoliChart = ({
               ))}
             </Pie>
             <Tooltip />
-            <Legend align="center" verticalAlign="bottom" height={36} />
+            <Legend
+              align="center"
+              verticalAlign="bottom"
+              height={36}
+              content={renderLegend}
+            />
           </PieChart>
         </ResponsiveContainer>
       </div>

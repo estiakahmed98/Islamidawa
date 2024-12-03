@@ -151,6 +151,7 @@ const ReportTable = () => {
               {row.data.map((value, index) => (
                 <td
                   key={index}
+                  contentEditable
                   className="border border-gray-300 p-2 text-center"
                 >
                   {value}

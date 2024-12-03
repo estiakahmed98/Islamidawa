@@ -98,7 +98,7 @@ const SidebarAdmin = () => {
           </Link>
 
           <Link
-            href="#"
+            href="notification"
             className={`flex py-2 px-2 items-center font-medium ${
               isCollapsed ? "gap-0" : "gap-3"
             } whitespace-nowrap ${
@@ -112,7 +112,7 @@ const SidebarAdmin = () => {
             </div>
 
             <li className={`text-sm ${isCollapsed ? "hidden" : "block"}`}>
-              অনুমুতি দিন
+              অনুমতি দিন
             </li>
           </Link>
         </ul>
