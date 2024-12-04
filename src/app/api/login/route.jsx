@@ -26,15 +26,12 @@ export async function POST(req) {
       return new Response("All fields are required", { status: 400 });
     }
 
-    // Log input for debugging
     console.log("Attempting login with:", { email, role });
 
-    // Find the user by email and role
     const newUser = await prisma.newUser.findFirst({
       where: { email, role },
     });
 
-    // Log user info for debugging
     console.log("User found:", newUser);
 
     if (!newUser) {

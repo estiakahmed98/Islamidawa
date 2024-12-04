@@ -1,138 +1,118 @@
+//in ReportTable.jsx com
+
 "use client";
+import React, { useState, useEffect } from "react";
+import { tableData } from "@/app/data/TableData";
 
 import fileDownload from "js-file-download";
 import jsPDF from "jspdf";
-import React from "react";
 import "jspdf-autotable";
 
-const convertToCSV = (data) => {
-  const header = Object.keys(data[0]).join(",") + "\n";
-  const rows = data.map((row) => Object.values(row).join(",")).join("\n");
-  return header + rows;
-};
-
-const convertToPDF = (data) => {
-  const doc = new jsPDF({ orientation: "landscape" });
-  doc.setFontSize(16);
-  doc.text("আ’মলি মুহাসাবা", 14, 10);
-  const headers = [
-    [
-      "আ’মলি মুহাসাবা",
-      ...Array.from({ length: 30 }, (_, i) => (i + 1).toString()),
-    ],
-  ];
-  const rows = data.map((row) => [row.name, ...row.data]);
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const tableWidth = pageWidth - 20;
-  doc.autoTable({
-    head: headers,
-    body: rows,
-    startY: 20,
-    theme: "grid",
-    headStyles: {
-      fillColor: [22, 160, 133],
-      textColor: [255, 255, 255],
-      fontSize: 10,
-      halign: "center",
-      valign: "middle",
-    },
-    bodyStyles: {
-      fontSize: 10,
-      cellPadding: 3,
-      halign: "center",
-      valign: "middle",
-      borderColor: [200, 200, 200],
-      lineWidth: 0.5,
-    },
-    alternateRowStyles: {
-      fillColor: [240, 240, 240],
-    },
-    columnStyles: {
-      0: { cellWidth: 50 },
-
-      1: { cellWidth: (tableWidth - 50) / 30 },
-      2: { cellWidth: (tableWidth - 50) / 30 },
-      3: { cellWidth: (tableWidth - 50) / 30 },
-      4: { cellWidth: (tableWidth - 50) / 30 },
-      5: { cellWidth: (tableWidth - 50) / 30 },
-      6: { cellWidth: (tableWidth - 50) / 30 },
-      7: { cellWidth: (tableWidth - 50) / 30 },
-      8: { cellWidth: (tableWidth - 50) / 30 },
-      9: { cellWidth: (tableWidth - 50) / 30 },
-      10: { cellWidth: (tableWidth - 50) / 30 },
-      11: { cellWidth: (tableWidth - 50) / 30 },
-      12: { cellWidth: (tableWidth - 50) / 30 },
-      13: { cellWidth: (tableWidth - 50) / 30 },
-      14: { cellWidth: (tableWidth - 50) / 30 },
-      15: { cellWidth: (tableWidth - 50) / 30 },
-      16: { cellWidth: (tableWidth - 50) / 30 },
-      17: { cellWidth: (tableWidth - 50) / 30 },
-      18: { cellWidth: (tableWidth - 50) / 30 },
-      19: { cellWidth: (tableWidth - 50) / 30 },
-      20: { cellWidth: (tableWidth - 50) / 30 },
-      21: { cellWidth: (tableWidth - 50) / 30 },
-      22: { cellWidth: (tableWidth - 50) / 30 },
-      23: { cellWidth: (tableWidth - 50) / 30 },
-      24: { cellWidth: (tableWidth - 50) / 30 },
-      25: { cellWidth: (tableWidth - 50) / 30 },
-      26: { cellWidth: (tableWidth - 50) / 30 },
-      27: { cellWidth: (tableWidth - 50) / 30 },
-      28: { cellWidth: (tableWidth - 50) / 30 },
-      29: { cellWidth: (tableWidth - 50) / 30 },
-      30: { cellWidth: (tableWidth - 50) / 30 },
-    },
-    pageBreak: "auto",
-  });
-
-  return doc;
-};
-
 const ReportTable = () => {
+  // const [tableData, setTableData] = useState([]);
+  const [daysInMonth, setDaysInMonth] = useState([]);
+  const [monthName, setMonth] = useState("");
+
+  const convertToCSV = (data) => {
+    // Extract headers dynamically
+    const headers = [
+      "id",
+      "name",
+      ...Object.keys(data[0]?.values || {}).map((key) => key), // Add day keys dynamically
+    ];
+
+    // Generate rows with flattened values
+    const rows = data.map((row) => {
+      const values = row.values || {};
+      return [
+        row.id,
+        row.name,
+        ...Object.values(values), // Flatten the values object
+      ];
+    });
+
+    // Combine headers and rows into a CSV string
+    const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    return csv;
+  };
+
+  const convertToPDF = (data) => {
+    const doc = new jsPDF();
+    doc.text("Table Data", 14, 10);
+
+    // Extract headers and data
+    const headers = [monthName, ...data.map((row) => row.name)]; // First column and row names
+
+    // Create rows by pivoting data
+    const fields = [
+      "ID",
+      ...Object.keys(data[0]?.values || {}), // Include dynamic day fields
+    ];
+
+    const rows = fields.map((field) => {
+      if (field === "ID") {
+        return [field, ...data.map((row) => row.id)]; // Add IDs as a row
+      } else {
+        return [
+          field,
+          ...data.map((row) => row.values?.[field.toLowerCase()] || ""),
+        ];
+      }
+    });
+
+    // Generate the table
+    doc.autoTable({
+      head: [headers], // Use headers as column labels
+      body: rows, // Pivoted data as rows
+      startY: 20, // Start below the title
+      theme: "striped",
+      headStyles: {
+        fillColor: [22, 160, 133],
+        halign: "center", // Custom color for header
+      },
+      bodyStyles: {
+        textColor: 50,
+      },
+      styles: {
+        halign: "center", // Default alignment for all cells
+      },
+    });
+
+    return doc;
+  };
+
   const handleDownloadCSV = () => {
-    const csv = convertToCSV(rows);
+    const csv = convertToCSV(tableData);
     fileDownload(csv, "table-data.csv");
   };
 
   const handleDownloadPDF = () => {
-    const pdf = convertToPDF(rows);
+    const pdf = convertToPDF(tableData);
     pdf.save("table-data.pdf");
   };
 
-  const days = Array.from({ length: 30 }, (_, i) => ` ${i + 1}`);
-  const rows = [
-    {
-      id: 1,
-      name: "তাহাজ্জুদ",
-      data: Array(30).fill(0),
-    },
-    { id: 2, name: "সকাল-সন্ধ্যা দোয়া ও জিকির", data: Array(30).fill(0) },
-    { id: 3, name: "জামাতে সালাত", data: Array(30).fill(0) },
-    {
-      id: 4,
-      name: "দু’আ আনাস ইবনে মালেক",
-      data: Array(30).fill(0),
-    },
-    { id: 5, name: "তিন তাসবীহ (সকাল- সন্ধ্যা)", data: Array(30).fill(0) },
-    { id: 6, name: "দৈনিক হিজবুল বাহার পাঠ", data: Array(30).fill(0) },
-    { id: 7, name: "তিলাওয়াতুল কোরয়আন তাদাব্বুর", data: Array(30).fill(0) },
-    { id: 8, name: "ইশরাক-আওয়াবীন-চাশ্ত", data: Array(30).fill(0) },
-    { id: 9, name: "সিরাত ও মাগফিরাত কিতাব পাঠ", data: Array(30).fill(0) },
-    { id: 10, name: "ইলমী ও আমলী কিতাব পাঠ", data: Array(30).fill(0) },
-    { id: 11, name: "দা’য়ীদের আমলী কিতাব পাঠ", data: Array(30).fill(0) },
-    {
-      id: 12,
-      name: "আজ সোমবার আইয়্যামে বীজের রোজা রেখেছেন তো?",
-      data: Array(30).fill(0),
-    },
-  ];
+  // Generate days for the current month
+  useEffect(() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const days = new Date(year, month + 1, 0).getDate(); // Total days in month
+    const daysArray = Array.from({ length: days }, (_, i) => ` ${i + 1}`);
+    const x = today.toLocaleString("default", { month: "long" }); // Full month name
+
+    setDaysInMonth(daysArray);
+    setMonth(x);
+  }, []);
+
+  console.log("Table Data", tableData);
 
   return (
-    <div className="overflow-x-auto p-2 grow">
-      <table className="table-auto border-collapse border border-gray-300 w-full text-xl">
+    <div className="overflow-x-auto p-4">
+      <table className="table-auto border-collapse border border-gray-300 w-full text-sm md:text-base">
         <thead>
           <tr className="bg-gray-200">
-            <th className="border border-gray-300 p-2">আ’মলি মুহাসাবা</th>
-            {days.map((day, index) => (
+            <th className="border border-gray-300 p-2">{monthName}</th>
+            {daysInMonth.map((day, index) => (
               <th
                 key={index}
                 className="border border-gray-300 p-2 text-center"
@@ -143,16 +123,15 @@ const ReportTable = () => {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
+          {tableData.map((row) => (
             <tr key={row.id}>
-              <td className="border border-gray-300 p-2 font-medium text-left">
+              <td className="border border-gray-300 bg-gray-100 p-4 font-medium">
                 {row.name}
               </td>
-              {row.data.map((value, index) => (
+              {Object.entries(row.values || []).map(([key, value]) => (
                 <td
-                  key={index}
-                  contentEditable
-                  className="border border-gray-300 p-2 text-center"
+                  key={key}
+                  className="border border-gray-300 p-4 text-center"
                 >
                   {value}
                 </td>
@@ -161,16 +140,15 @@ const ReportTable = () => {
           ))}
         </tbody>
       </table>
-
-      <div className="mt-4 flex justify-end gap-4">
+      <div className="flex justify-end gap-4 pt-4">
         <button
-          className="p-2 text-white bg-teal-700 border-2 border-teal-700 rounded-md hover:bg-teal-800"
+          className="p-2 text-white border-2 bg-teal-700 rounded-md"
           onClick={handleDownloadCSV}
         >
           Download CSV
         </button>
         <button
-          className="p-2 text-white bg-teal-700 border-2 border-teal-700 rounded-md hover:bg-teal-800"
+          className="p-2 text-white border-2 bg-teal-700 rounded-md"
           onClick={handleDownloadPDF}
         >
           Download PDF

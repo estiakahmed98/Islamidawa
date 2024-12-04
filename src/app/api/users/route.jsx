@@ -33,7 +33,26 @@ export async function GET(req) {
 
     // Fetch filtered users from Prisma
     const users = await prisma.newUser.findMany({
-      where: filters,
+      where: {
+        role: {
+          contains: filters.role,
+        },
+        fullName: {
+          contains: filters.fullName,
+        },
+        division: {
+          contains: filters.division,
+        },
+        district: {
+          contains: filters.district,
+        },
+        upazila: {
+          contains: filters.upazila,
+        },
+        tunion: {
+          contains: filters.tunion,
+        },
+      },
     });
 
     // Log the fetched users for debugging

@@ -38,6 +38,9 @@ const ProfileToggol = () => {
           <p className="font-bold text-[8px] sm:text-sm md:text-base">
             {user ? user.name : "Guest"}
           </p>
+          <p className="font-bold text-[8px] sm:text-sm md:text-base">
+            {user ? user.role : "Loading"}
+          </p>
         </div>
 
         <div className="text-gray-950">

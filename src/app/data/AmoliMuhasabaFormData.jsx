@@ -12,14 +12,14 @@ export const initialFormData = {
   ilm: "",
   tasbih: "",
   dayeeAmol: "",
-  amoliSura:"",
+  amoliSura: "",
+  ayamroja: "",
   hijbulBahar: "",
 };
 
 // Validation schema using Yup
 export const validationSchema = Yup.object().shape({
-  tahajjud: Yup.number()
-    .required("tahajjud is required"),
+  tahajjud: Yup.string().required("tahajjud is required"),
   ayat: Yup.string().required("sura is required"),
   zikir: Yup.string().required("zikir is required"),
   ishraq: Yup.string().required("Option is required"),
@@ -30,10 +30,8 @@ export const validationSchema = Yup.object().shape({
   tasbih: Yup.string().required("Option Selection is Required"),
   dayeeAmol: Yup.string().required("Dayee Amol Selection is Required"),
   amoliSura: Yup.string().required("Amoli Sura Selection is Required"),
-  Ayam: Yup.string().required("Ayam Selection is Required"),
+  ayamroja: Yup.string().required("Ayam Selection is Required"),
   hijbulBahar: Yup.string().required("Hijbul Bahar Selection is Required"),
-  
-  
 });
 
 // Options for select fields
@@ -41,9 +39,7 @@ export const validationSchema = Yup.object().shape({
 export const duaOptions = [
   { value: "হ্যাঁ", label: "হ্যাঁ" },
   { value: " না ", label: " না " },
-  
 ];
-
 
 export const ayatOptions = [
   { value: "sura Fatiha", label: "সুরা ফাতিহা" },
@@ -159,42 +155,38 @@ export const ayatOptions = [
   { value: "sura Masad", label: "সুরা আল-মাসাদ" },
   { value: "sura Ikhlas", label: "সুরা আল-ইখলাস" },
   { value: "sura Falaq", label: "সুরা আল-ফালাক" },
-  { value: "sura Nas", label: "সুরা আন-নাস" }
+  { value: "sura Nas", label: "সুরা আন-নাস" },
 ];
 
-export const zikirOptions =[
-  { value: "সকাল" , label: "সকাল"},
-  {value: "সন্ধ্যা" , label:"সন্ধ্যা"},
-  {value: "সকাল/সন্ধ্যা" , label:"সকাল/সন্ধ্যা"},
-]
+export const zikirOptions = [
+  { value: "সকাল", label: "সকাল" },
+  { value: "সন্ধ্যা", label: "সন্ধ্যা" },
+  { value: "সকাল/সন্ধ্যা", label: "সকাল/সন্ধ্যা" },
+];
 
-export const ishraqOptions =[
-  { value: "ইশরাক" , label: "ইশরাক"},
-  {value: "আওয়াবীন" , label:"আওয়াবীন"},
-  {value: "চাশ্ত" , label:"চাশ্ত"},
-]
-export const tasbihOptions =[
-  { value: "সকাল" , label: "সকাল"},
-  {value: "সন্ধ্যা" , label:"সন্ধ্যা"},
-  {value: "সকাল/সন্ধ্যা" , label:"সকাল/সন্ধ্যা"},
-]
+export const ishraqOptions = [
+  { value: "ইশরাক", label: "ইশরাক" },
+  { value: "আওয়াবীন", label: "আওয়াবীন" },
+  { value: "চাশ্ত", label: "চাশ্ত" },
+];
+export const tasbihOptions = [
+  { value: "সকাল", label: "সকাল" },
+  { value: "সন্ধ্যা", label: "সন্ধ্যা" },
+  { value: "সকাল/সন্ধ্যা", label: "সকাল/সন্ধ্যা" },
+];
 export const dayeeAmolOptions = [
   { value: "হ্যাঁ", label: "হ্যাঁ" },
   { value: " না ", label: " না " },
-  
 ];
 export const amoliSuraOptions = [
   { value: "হ্যাঁ", label: "হ্যাঁ" },
   { value: " না ", label: " না " },
-  
 ];
 export const AyamOptions = [
   { value: "হ্যাঁ", label: "হ্যাঁ" },
   { value: " না ", label: " না " },
-  
 ];
 export const hijbulBaharOptions = [
   { value: "হ্যাঁ", label: "হ্যাঁ" },
   { value: " না ", label: " না " },
-  
 ];

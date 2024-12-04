@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function UsersTable() {
@@ -160,7 +161,12 @@ export default function UsersTable() {
                     {user.id}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    {user.fullName}
+                    <Link
+                      href={`/admin/users/${user.id}`}
+                      className="hover:underline hover:text-blue-500"
+                    >
+                      {user.fullName}
+                    </Link>
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     {user.email}

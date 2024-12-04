@@ -37,10 +37,11 @@ export default function LocationDropdown({ language = "bn" }) {
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
   const [unions, setUnions] = useState([]);
-  const [finalDivision, setFinalDivision] = useState([]);
+  const [finalDivision, setFinalDivision] = useState("");
 
   const handleDivisionChange = (e) => {
     const divisionValue = e.target.value.toString();
+    console.log(divisionValue);
     const formattedValue = divisionValue.split("_");
     setSelectedDivision(formattedValue[0]);
 
@@ -59,6 +60,7 @@ export default function LocationDropdown({ language = "bn" }) {
 
   const handleDistrictChange = (e) => {
     const districtValue = e.target.value.toString();
+    console.log(districtValue);
     console.log("Hello", districtValue);
 
     const formattedValue = districtValue.split("_");
@@ -74,10 +76,12 @@ export default function LocationDropdown({ language = "bn" }) {
 
   const handleUpazilaChange = (e) => {
     const upazilaValue = e.target.value.toString();
+    console.log(upazilaValue);
     const formattedValue = upazilaValue.split("_");
     setSelectedUpazila(formattedValue[0]);
 
     const upazilaUnions = getUnions(formattedValue[0], language);
+    console.log(upazilaUnions);
     setUnions(upazilaUnions);
   };
 
@@ -94,7 +98,6 @@ export default function LocationDropdown({ language = "bn" }) {
         <select
           id="division"
           name="division"
-          value={selectedDivision}
           onChange={handleDivisionChange}
           required
           className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -121,7 +124,6 @@ export default function LocationDropdown({ language = "bn" }) {
         <select
           id="district"
           name="district"
-          value={selectedDistrict}
           onChange={handleDistrictChange}
           required
           disabled={!districts.length}
@@ -149,7 +151,6 @@ export default function LocationDropdown({ language = "bn" }) {
         <select
           id="upazila"
           name="upazila"
-          value={selectedUpazila}
           onChange={handleUpazilaChange}
           required
           disabled={!Array.isArray(upazilas) || upazilas.length === 0}
