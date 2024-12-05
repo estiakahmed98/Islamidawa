@@ -13,6 +13,13 @@ export default function UsersTable() {
     upazila: "",
     tunion: "",
   });
+  const [userRole, setUserRole] = useState("");
+
+  // Fetch user role from localStorage
+  useEffect(() => {
+    const role = JSON.parse(localStorage.getItem("user"))?.role || "";
+    setUserRole(role);
+  }, []); // Run only once on component mount
 
   // Fetch users based on filters
   useEffect(() => {
@@ -48,7 +55,6 @@ export default function UsersTable() {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Delete user handler
   const handleDelete = async (userId) => {
     try {
       const response = await fetch(`/api/users/${userId}`, {
@@ -67,12 +73,13 @@ export default function UsersTable() {
     }
   };
 
-  if (loading)
+  if (loading) {
     return (
       <p className="mx-auto text-xl text-cyan-700 text-center p-28">
         Loading users...
       </p>
     );
+  }
 
   return (
     <div className="w-full mx-auto mt-10 p-4">
@@ -82,25 +89,24 @@ export default function UsersTable() {
       <div className="mb-4 grid grid-cols-3 md:grid-cols-6 gap-4">
         {/* Role Filter */}
         <select
-          name="role"
           value={filters.role}
           onChange={(e) => handleFilterChange("role", e.target.value)}
           className="border border-gray-300 rounded-md px-4 py-2"
         >
-          <option value="">All Users</option>
-          <option value="centraladmin">কেন্দ্রীয় এডমিন</option>
-          <option value="divisionadmin">বিভাগীয় এডমিন </option>
-          <option value="districtadmin">জেলা এডমিন</option>
-          <option value="areaadmin">এলাকার এডমিন</option>
-          <option value="upozilaadmin">উপজেলা এডমিন</option>
-          <option value="daye">দা'ঈ</option>
-          <option value="user">ইউনিয়ন</option>
+          <option value="">All Roles</option>
+          <option value="centraladmin">Central Admin</option>
+          <option value="divisionadmin">Division Admin</option>
+          <option value="districtadmin">District Admin</option>
+          <option value="areaadmin">Area Admin</option>
+          <option value="upozilaadmin">Upazila Admin</option>
+          <option value="daye">Da'ee</option>
+          <option value="user">User</option>
         </select>
 
         {/* Other Filters */}
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Full Name"
           value={filters.fullName}
           onChange={(e) => handleFilterChange("fullName", e.target.value)}
           className="border border-gray-300 rounded-md px-4 py-2"
@@ -135,7 +141,6 @@ export default function UsersTable() {
         />
       </div>
 
-      {/* User Table */}
       <div className="overflow-x-auto shadow-lg text-center rounded-lg">
         <table className="w-full border-collapse border border-gray-200">
           <thead className="bg-gray-100">
@@ -150,7 +155,9 @@ export default function UsersTable() {
               <th className="border border-gray-300 px-4 py-2">Union</th>
               <th className="border border-gray-300 px-4 py-2">Phone Number</th>
               <th className="border border-gray-300 px-4 py-2">Markaz</th>
-              <th className="border border-gray-300 px-4 py-2">Actions</th>
+              {userRole === "centraladmin" && (
+                <th className="border border-gray-300 px-4 py-2">Actions</th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -192,23 +199,25 @@ export default function UsersTable() {
                   <td className="border border-gray-300 px-4 py-2">
                     {user.markaz}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <button
-                      onClick={() => handleDelete(user.id)}
-                      className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                    >
-                      Delete
-                    </button>
-                  </td>
+                  {userRole === "centraladmin" && (
+                    <td className="border border-gray-300 px-4 py-2">
+                      <button
+                        onClick={() => handleDelete(user.id)}
+                        className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))
             ) : (
               <tr>
                 <td
-                  colSpan="7"
+                  colSpan="11"
                   className="text-center px-4 py-2 border border-gray-300"
                 >
-                  No users found matching the filters.
+                  No users found.
                 </td>
               </tr>
             )}

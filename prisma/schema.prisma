@@ -23,6 +23,13 @@ model newUser {
   phoneNumber String
   email    String @unique
   password String
+
+  @@index([fullName])
+  @@index([role])
+  @@index([division])
+  @@index([district])
+  @@index([upazila])
+  @@index([tunion])
   
 }
 
