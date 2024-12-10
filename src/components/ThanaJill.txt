@@ -14,7 +14,7 @@ divisions: [
         ],
       },
       {
-        name: "Barishal",
+        name: "Barishal", 
         thanas: [
           "Agailjhara",
           "Babuganj",

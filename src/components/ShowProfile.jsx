@@ -58,24 +58,32 @@ const ShowProfile = () => {
 
             <div className="flex items-center">
               <p className="font-medium text-gray-500">Division:</p>
-              <p className="ml-3 font-semibold">{user.district || "N/A"}</p>
+              <p className="ml-3 font-semibold">
+                {user.district.slice(3) || "N/A"}
+              </p>
             </div>
             <hr />
 
             <div className="flex items-center">
               <p className="font-medium text-gray-500">District:</p>
-              <p className="ml-3 font-semibold">{user.district || "N/A"}</p>
+              <p className="ml-3 font-semibold">
+                {user.district.slice(3) || "N/A"}
+              </p>
             </div>
             <hr />
 
             <div className="flex items-center">
               <p className="font-medium text-gray-500">Upazila:</p>
-              <p className="ml-3 font-semibold">{user.upazila || "N/A"}</p>
+              <p className="ml-3 font-semibold">
+                {user.upazila.slice(4) || "N/A"}
+              </p>
             </div>
             <hr />
             <div className="flex items-center">
               <p className="font-medium text-gray-500">Union:</p>
-              <p className="ml-3 font-semibold">{user.tunion || "N/A"}</p>
+              <p className="ml-3 font-semibold">
+                {user.tunion.slice(5) || "N/A"}
+              </p>
             </div>
             <hr />
             <div className="flex items-center">

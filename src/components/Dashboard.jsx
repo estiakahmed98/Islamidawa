@@ -19,8 +19,6 @@ import {
   TabsTrigger,
   TabsContent,
 } from "@/components/TabButton";
-import ReportTable from "./ReportTableMonthly";
-import ReportTableYearly from "./ReportTableYearly";
 
 const Dashboard = () => {
   const currentDate = new Date().toISOString().split("T")[0];

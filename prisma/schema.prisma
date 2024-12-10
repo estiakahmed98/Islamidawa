@@ -30,6 +30,7 @@ model newUser {
   @@index([district])
   @@index([upazila])
   @@index([tunion])
+  @@index([markaz])
   
 }
 

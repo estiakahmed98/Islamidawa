@@ -13,8 +13,8 @@ const Profile = () => {
     thana: "",
     markaz: "",
     getFullName: function () {
-        return this.fname + " " + this.lname;
-      },
+      return this.fname + " " + this.lname;
+    },
   });
 
   //form input change method
@@ -29,7 +29,6 @@ const Profile = () => {
     console.log("Form Submitted:", formData);
   };
 
-
   return (
     <>
       <div className="w-[350px] sm:w-[500px] mx-auto p-8 bg-slate-50 shadow-lg rounded-lg">
@@ -40,7 +39,6 @@ const Profile = () => {
           </div>
           <h3 className="text-lg font-semibold text-gray-800 mt-2">
             {formData.getFullName()}
-            
           </h3>
           <p className="text-gray-500 text-sm">{formData.email}</p>
         </div>
@@ -50,13 +48,13 @@ const Profile = () => {
           {/* Name */}
           <div className="w-full flex justify-between">
             <div>
-                <label
+              <label
                 htmlFor="fname"
                 className="block text-sm font-medium text-gray-700"
-                >
+              >
                 First Name
-                </label>
-                <input
+              </label>
+              <input
                 type="text"
                 id="fname"
                 name="fname"
@@ -64,17 +62,17 @@ const Profile = () => {
                 onChange={handleChange}
                 placeholder="First name"
                 className="w-full p-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
+              />
             </div>
 
             <div>
-                <label
+              <label
                 htmlFor="lname"
                 className="block text-sm font-medium text-gray-700"
-                >
+              >
                 Last Name
-                </label>
-                <input
+              </label>
+              <input
                 type="text"
                 id="lname"
                 name="lname"
@@ -82,8 +80,8 @@ const Profile = () => {
                 onChange={handleChange}
                 placeholder="First name"
                 className="w-full p-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-            </div>    
+              />
+            </div>
           </div>
 
           {/* Email */}
@@ -139,7 +137,9 @@ const Profile = () => {
               onChange={handleChange}
               className="w-full p-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-             <option value="" disabled>Select</option> 
+              <option value="" disabled>
+                Select
+              </option>
               <option value="Dhaka">Dhaka</option>
               <option value="Chittagong">Chittagong</option>
               <option value="Chittagong">Rajshahi</option>
@@ -166,7 +166,9 @@ const Profile = () => {
               onChange={handleChange}
               className="w-full p-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              <option value="" disabled>Select</option>
+              <option value="" disabled>
+                Select
+              </option>
               <option value="Dhaka">Dhaka</option>
               <option value="Chittagong">Chittagong</option>
               <option value="Khulna">Khulna</option>
@@ -188,7 +190,9 @@ const Profile = () => {
               onChange={handleChange}
               className="w-full p-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              <option value="" disabled>Select</option>
+              <option value="" disabled>
+                Select
+              </option>
               <option value="Dhaka">Dhaka Sadar</option>
               <option value="Chittagong">Savar</option>
               <option value="Khulna">Uttora</option>
@@ -210,7 +214,9 @@ const Profile = () => {
               onChange={handleChange}
               className="w-full p-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              <option value="" disabled>Select</option>
+              <option value="" disabled>
+                Select
+              </option>
               <option value="Dhaka">Dhaka Sadar</option>
               <option value="Chittagong">Savar</option>
               <option value="Khulna">Uttora</option>
@@ -224,9 +230,8 @@ const Profile = () => {
               className="w-32 py-2 px-4 bg-teal-600 text-white font-bold rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               Save
-            </button>    
+            </button>
           </div>
-         
         </form>
       </div>
     </>
