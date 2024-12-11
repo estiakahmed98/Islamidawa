@@ -70,12 +70,13 @@ export default function Register() {
                 Select Role
               </option>
               <option value="centraladmin">কেন্দ্রীয় এডমিন</option>
-              <option value="divisionadmin">বিভাগীয় এডমিন </option>
+              {/* <option value="divisionadmin">বিভাগীয় এডমিন </option>
               <option value="districtadmin">জেলা এডমিন</option>
               <option value="areaadmin">এলাকার এডমিন</option>
-              <option value="upozilaadmin">উপজেলা এডমিন</option>
-              <option value="daye">দা'ঈ</option>
-              <option value="user">ইউনিয়ন</option>
+              <option value="upozilaadmin">উপজেলা এডমিন</option> */}
+              <option value="unionadmin"> Union Admin</option>
+              <option value="daye">ইউনিয়ন দা'ঈ</option>
+              <option value="user">User</option>
             </select>
           </div>
 
@@ -83,6 +84,38 @@ export default function Register() {
             <LocationDropdown />
           </div>
 
+          <div>
+            <label
+              htmlFor="parentAdmin"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Union Admin ID
+            </label>
+            <input
+              type="number"
+              id="parentAdmin"
+              name="parentAdmin"
+              placeholder="Enter Union Admin id"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="parentAdminName"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Union Admin Name
+            </label>
+            <input
+              type="text"
+              id="parentAdminName"
+              name="parentAdminName"
+              placeholder="Enter Union Admin Name"
+              required
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
           <div>
             <label
               htmlFor="markaz"

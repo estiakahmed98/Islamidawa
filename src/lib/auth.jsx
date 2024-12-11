@@ -1,9 +1,23 @@
 import jwt from "jsonwebtoken";
 
-export const verifyToken = (token) => {
+/**
+ * @param {object} req
+ * @param {string} token
+ * @returns {object|null}
+ */
+export const verifyToken = (req, token = null) => {
   try {
+    if (!token) {
+      token = req?.headers.authorization?.split(" ")[1];
+    }
+
+    if (!token) {
+      console.error("Token not provided");
+      return null;
+    }
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return decoded; // Should include user ID or other identifying information
+    return decoded;
   } catch (error) {
     console.error("Invalid token:", error);
     return null;

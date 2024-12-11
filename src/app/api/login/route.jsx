@@ -2,17 +2,21 @@ import prisma from "../../../../prisma/prisma";
 import bcrypt from "bcrypt";
 
 const setCorsHeaders = (res) => {
-  res.headers.set("Access-Control-Allow-Origin", "*"); // Allow all origins (use specific domains in production)
-  res.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Allow only certain methods
+  res.headers.set("Access-Control-Allow-Origin", "*");
+  res.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.headers.set(
     "Access-Control-Allow-Headers",
     "Content-Type, Authorization"
-  ); // Allow necessary headers
-  res.headers.set("Access-Control-Max-Age", "86400"); // Cache preflight response
+  );
+  res.headers.set("Access-Control-Max-Age", "86400");
+};
+
+const setCookie = (res, userId, role) => {
+  const cookieValue = `userId=${userId}; role=${role}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=86400`;
+  res.headers.set("Set-Cookie", cookieValue);
 };
 
 export async function OPTIONS() {
-  // Preflight response for CORS
   const response = new Response(null, { status: 204 });
   setCorsHeaders(response);
   return response;
@@ -41,16 +45,13 @@ export async function POST(req) {
       return response;
     }
 
-    // Verify password
-    const isPasswordValid = newUser.password;
+    const isPasswordValid = await bcrypt.compare(password, newUser.password);
     if (!isPasswordValid) {
       console.log("Invalid password.");
       const response = new Response("Invalid credentials", { status: 401 });
       setCorsHeaders(response);
       return response;
     }
-
-    // Successful login: return user info without password
     const response = new Response(
       JSON.stringify({
         message: `Welcome ${role}!`,
@@ -59,15 +60,15 @@ export async function POST(req) {
           role: newUser.role,
           name: newUser.fullName,
           id: newUser.id,
-          division: newUser.division,
-          district: newUser.district,
-          upazila: newUser.upazila,
           tunion: newUser.tunion,
           phoneNumber: newUser.phoneNumber,
         },
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
+
+    setCookie(response, newUser.id);
+
     setCorsHeaders(response);
     return response;
   } catch (error) {

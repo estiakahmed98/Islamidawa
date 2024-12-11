@@ -11,6 +11,8 @@ export async function POST(req) {
     district,
     upazila,
     tunion,
+    parentAdmin,
+    parentAdminName,
     markaz,
     phoneNumber,
   } = await req.json();
@@ -24,6 +26,8 @@ export async function POST(req) {
     district,
     upazila,
     tunion,
+    parentAdmin,
+    parentAdminName,
     phoneNumber,
     markaz,
   });
@@ -43,6 +47,8 @@ export async function POST(req) {
         district,
         upazila,
         tunion,
+        parentAdmin: Number(parentAdmin),
+        parentAdminName,
         markaz,
         phoneNumber,
         email,

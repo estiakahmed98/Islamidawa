@@ -19,9 +19,8 @@ export default function UsersTable() {
   useEffect(() => {
     const role = JSON.parse(localStorage.getItem("user"))?.role || "";
     setUserRole(role);
-  }, []); // Run only once on component mount
+  }, []);
 
-  // Fetch users based on filters
   useEffect(() => {
     async function fetchUsers() {
       try {
@@ -153,6 +152,9 @@ export default function UsersTable() {
               <th className="border border-gray-300 px-4 py-2">District</th>
               <th className="border border-gray-300 px-4 py-2">Upazila</th>
               <th className="border border-gray-300 px-4 py-2">Union</th>
+              <th className="border border-gray-300 px-4 py-2">
+                Union Admin Name
+              </th>
               <th className="border border-gray-300 px-4 py-2">Phone Number</th>
               <th className="border border-gray-300 px-4 py-2">Markaz</th>
               {userRole === "centraladmin" && (
@@ -192,6 +194,9 @@ export default function UsersTable() {
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     {user.tunion.split("_")[1]}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {user.parentAdminName}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     {user.phoneNumber}

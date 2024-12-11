@@ -19,6 +19,8 @@ model newUser {
   district String
   upazila    String
   tunion    String
+  parentAdmin Int
+  parentAdminName String
   markaz   String
   phoneNumber String
   email    String @unique
