@@ -2,23 +2,26 @@
 
 import Header from "@/components/Header";
 import ImpersonateSidebar from "@/components/impersonateSidebar";
-import NewSideBar from "@/components/newsidebar";
-import Sidebar from "@/components/Sidebar";
-import SidebarAdmin from "@/components/SidebarAdmin";
+import { useState, useEffect } from "react";
 
-const page = ({ children }) => {
+const Page = ({ children }) => {
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const userEmail = localStorage.getItem("userEmail");
+    setUserName(userEmail);
+  }, []);
+
   return (
     <div className="h-screen">
       <Header />
       <div className="flex h-[calc(100vh-104px)] overflow-hidden">
         <ImpersonateSidebar />
-        {/* <NewSideBar /> */}
 
-        {/* <Sidebar /> */}
         <div className="p-6 grow overflow-y-auto">{children}</div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;

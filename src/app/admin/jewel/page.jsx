@@ -2,29 +2,30 @@ import AmoliChart from "@/components/AmoliChart";
 import TalimDonutChart from "@/components/TalimBisoyChart";
 import Tally from "@/components/Tally";
 import {
-  moktobData_jewel,
-  DayeBisoyData_jewel,
-  DawatiBisoyData_jewel,
-  DawatiMoslishData_jewel,
-  JamatBisoyData_jewel,
-  DineFeraData_jewel,
-  SoforBisoyData_jewel,
-  AmoliChartData_jewel,
-  TalimDonutChartData1_jewel,
-  TalimDonutChartData2_jewel,
-} from "@/app/data/data_jewel";
+  moktobData_faysal,
+  DayeBisoyData_faysal,
+  DawatiBisoyData_faysal,
+  DawatiMoslishData_faysal,
+  JamatBisoyData_faysal,
+  DineFeraData_faysal,
+  SoforBisoyData_faysal,
+  AmoliChartData_faysal,
+  TalimDonutChartData1_faysal,
+  TalimDonutChartData2_faysal,
+} from "@/app/data/data_faysal";
 import {
   Tabs,
   TabsList,
   TabsTrigger,
   TabsContent,
 } from "@/components/TabButton";
+import CombineDashboard from "@/components/CombineDashboard";
 
 const Dashboard = () => {
   const currentDate = new Date().toISOString().split("T")[0];
   return (
     <>
-      <Tabs defaultValue="daily" className="w-full p-4">
+      {/* <Tabs defaultValue="daily" className="w-full p-4">
         <div className="flex justify-between">
           <TabsList>
             <TabsTrigger value="daily">দৈনিক</TabsTrigger>
@@ -40,82 +41,83 @@ const Dashboard = () => {
         <TabsContent value="daily">
           <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-8 pb-4 pt-2">
             <AmoliChart
-              data={AmoliChartData_jewel}
+              data={AmoliChartData_faysal}
               innerRadius={70}
               outerRadius={115}
               startAngle={90}
               endAngle={450}
             />
             <TalimDonutChart
-              data1={TalimDonutChartData1_jewel}
-              data2={TalimDonutChartData2_jewel}
+              data1={TalimDonutChartData1_faysal}
+              data2={TalimDonutChartData2_faysal}
               innerRadius={50}
               outerRadius={90}
               startAngle={90}
               endAngle={450}
             />
-            <Tally data={moktobData_jewel} />
-            <Tally data={DawatiBisoyData_jewel} />
-            <Tally data={DawatiMoslishData_jewel} />
-            <Tally data={JamatBisoyData_jewel} />
-            <Tally data={DineFeraData_jewel} />
-            <Tally data={SoforBisoyData_jewel} />
-            <Tally data={DayeBisoyData_jewel} />
+            <Tally data={moktobData_faysal} />
+            <Tally data={DawatiBisoyData_faysal} />
+            <Tally data={DawatiMoslishData_faysal} />
+            <Tally data={JamatBisoyData_faysal} />
+            <Tally data={DineFeraData_faysal} />
+            <Tally data={SoforBisoyData_faysal} />
+            <Tally data={DayeBisoyData_faysal} />
           </div>
         </TabsContent>
         <TabsContent value="monthly">
           <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-8 pb-4 pt-2">
             <AmoliChart
-              data={AmoliChartData_jewel}
+              data={AmoliChartData_faysal}
               innerRadius={70}
               outerRadius={115}
               startAngle={90}
               endAngle={450}
             />
             <TalimDonutChart
-              data1={TalimDonutChartData1_jewel}
-              data2={TalimDonutChartData2_jewel}
+              data1={TalimDonutChartData1_faysal}
+              data2={TalimDonutChartData2_faysal}
               innerRadius={60}
               outerRadius={100}
               startAngle={90}
               endAngle={450}
             />
-            <Tally data={moktobData_jewel} />
-            <Tally data={DawatiBisoyData_jewel} />
-            <Tally data={DawatiMoslishData_jewel} />
-            <Tally data={JamatBisoyData_jewel} />
-            <Tally data={DineFeraData_jewel} />
-            <Tally data={SoforBisoyData_jewel} />
-            <Tally data={DayeBisoyData_jewel} />
+            <Tally data={moktobData_faysal} />
+            <Tally data={DawatiBisoyData_faysal} />
+            <Tally data={DawatiMoslishData_faysal} />
+            <Tally data={JamatBisoyData_faysal} />
+            <Tally data={DineFeraData_faysal} />
+            <Tally data={SoforBisoyData_faysal} />
+            <Tally data={DayeBisoyData_faysal} />
           </div>
         </TabsContent>
         <TabsContent value="yearly">
           <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-8 pb-4 pt-2">
             <AmoliChart
-              data={AmoliChartData_jewel}
+              data={AmoliChartData_faysal}
               innerRadius={70}
               outerRadius={115}
               startAngle={90}
               endAngle={450}
             />
             <TalimDonutChart
-              data1={TalimDonutChartData1_jewel}
-              data2={TalimDonutChartData2_jewel}
+              data1={TalimDonutChartData1_faysal}
+              data2={TalimDonutChartData2_faysal}
               innerRadius={60}
               outerRadius={100}
               startAngle={90}
               endAngle={450}
             />
-            <Tally data={moktobData_jewel} />
-            <Tally data={DawatiBisoyData_jewel} />
-            <Tally data={DawatiMoslishData_jewel} />
-            <Tally data={JamatBisoyData_jewel} />
-            <Tally data={DineFeraData_jewel} />
-            <Tally data={SoforBisoyData_jewel} />
-            <Tally data={DayeBisoyData_jewel} />
+            <Tally data={moktobData_faysal} />
+            <Tally data={DawatiBisoyData_faysal} />
+            <Tally data={DawatiMoslishData_faysal} />
+            <Tally data={JamatBisoyData_faysal} />
+            <Tally data={DineFeraData_faysal} />
+            <Tally data={SoforBisoyData_faysal} />
+            <Tally data={DayeBisoyData_faysal} />
           </div>
         </TabsContent>
-      </Tabs>
+      </Tabs> */}
+      <CombineDashboard />
     </>
   );
 };

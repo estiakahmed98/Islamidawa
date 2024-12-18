@@ -19,12 +19,13 @@ import {
   TabsTrigger,
   TabsContent,
 } from "@/components/TabButton";
+import CombineDashboard from "@/components/CombineDashboard";
 
 const Dashboard = () => {
   const currentDate = new Date().toISOString().split("T")[0];
   return (
     <>
-      <Tabs defaultValue="daily" className="w-full p-4">
+      {/* <Tabs defaultValue="daily" className="w-full p-4">
         <div className="flex justify-between">
           <TabsList>
             <TabsTrigger value="daily">দৈনিক</TabsTrigger>
@@ -115,7 +116,8 @@ const Dashboard = () => {
             <Tally data={DayeBisoyData_faysal} />
           </div>
         </TabsContent>
-      </Tabs>
+      </Tabs> */}
+      <CombineDashboard />
     </>
   );
 };

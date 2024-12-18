@@ -60,7 +60,12 @@ export async function POST(req) {
           role: newUser.role,
           name: newUser.fullName,
           id: newUser.id,
+          division: newUser.division,
+          district: newUser.district,
+          upazila: newUser.upazila,
           tunion: newUser.tunion,
+          markaz: newUser.markaz,
+
           phoneNumber: newUser.phoneNumber,
         },
       }),

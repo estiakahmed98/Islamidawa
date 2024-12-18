@@ -12,6 +12,8 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+import TreeProvider from "@/providers/treeProvider";
+
 // const mitraUnicode = localFont({
 //   src: "@/",
 //   variable: "--font-mitra-unicode",
@@ -26,7 +28,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="">{children}</body>
+      <body className={`${geistMono.variable} ${geistSans.variable}`}>
+        <TreeProvider>{children}</TreeProvider>
+      </body>
     </html>
   );
 }

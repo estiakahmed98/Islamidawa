@@ -20,7 +20,7 @@ const ShowProfile = () => {
   }
   console.log(user);
   return (
-    <div className="w-full h-screen flex items-center justify-center  p-4 mt-10">
+    <div className="w-full h-screen flex items-center justify-center  p-4">
       <div className=" w-full  rounded-lg shadow-lg">
         {/* Profile Header */}
         <div className="p-6 border-b  bg-gradient-to-r from-cyan-700 to-cyan-600 rounded-t-lg">
@@ -43,6 +43,11 @@ const ShowProfile = () => {
               <p className="ml-3 font-semibold">{user.name}</p>
             </div>
             <hr />
+            <div className="flex items-center">
+              <p className="font-medium text-gray-500">Role:</p>
+              <p className="ml-3 font-semibold">{user.role}</p>
+            </div>
+            <hr />
 
             <div className="flex items-center">
               <p className="font-medium text-gray-500">Email Address:</p>
@@ -59,7 +64,7 @@ const ShowProfile = () => {
             <div className="flex items-center">
               <p className="font-medium text-gray-500">Division:</p>
               <p className="ml-3 font-semibold">
-                {user.district.slice(3) || "N/A"}
+                {user.division.slice(3) || "N/A"}
               </p>
             </div>
             <hr />

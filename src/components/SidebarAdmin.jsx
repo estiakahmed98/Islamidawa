@@ -1,115 +1,23 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { IoPersonAddSharp } from "react-icons/io5";
+import { MdPeople } from "react-icons/md";
 import { FcAcceptDatabase } from "react-icons/fc";
 import {
   LuArrowLeftFromLine,
   LuArrowRightToLine,
   LuLayoutDashboard,
 } from "react-icons/lu";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import { SimpleTreeView } from "@mui/x-tree-view/SimpleTreeView";
-import { TreeItem } from "@mui/x-tree-view/TreeItem";
-
-// Tree structure with paths for specific nodes
-const MUI_X_PRODUCTS = [
-  {
-    id: "1",
-    label: "Central Admin",
-    children: [
-      {
-        id: "1-1",
-        label: "Division Admin",
-        children: [
-          {
-            id: "1-1-1",
-            label: "ময়মনসিংহ",
-            children: [
-              {
-                id: "1-1-1-1",
-                label: "Cluster Admin 1",
-                children: [
-                  {
-                    id: "1-1-1-1-1",
-                    label: "জামালপুর",
-                    children: [
-                      {
-                        id: "1-1-1-1-1-1",
-                        label: "জামালপুর সদর",
-                        children: [
-                          {
-                            id: "1-1-1-1-1-1-1",
-                            label: "শাহবাজপুর ",
-                            children: [
-                              {
-                                id: "1-1-1-1-1-1-1-1",
-                                label: "Faysal",
-                                path: "/admin/faysal",
-                              },
-                              {
-                                id: "1-1-1-1-1-1-1-2",
-                                label: "Jewel",
-                                path: "/admin/jewel",
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                id: "1-1-1-2",
-                label: "Cluster Admin 2",
-                children: [
-                  {
-                    id: "1-1-1-2-1",
-                    label: "Khutia",
-                  },
-                  {
-                    id: "1-1-1-2-2",
-                    label: "Jessore",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-];
-
-// Recursive render function for MUI Tree View
-const renderTree = (nodes) => {
-  return nodes.map((node) => (
-    <TreeItem
-      key={node.id}
-      itemId={node.id}
-      label={
-        node.path ? (
-          <Link href={node.path} passHref>
-            <span className="font-medium text-white hover:text-cyan-400">
-              {node.label}
-            </span>
-          </Link>
-        ) : (
-          <span className="font-medium">{node.label}</span>
-        )
-      }
-    >
-      {node.children && renderTree(node.children)}
-    </TreeItem>
-  ));
-};
+import OnItemClick from "@/components/MuiTreeView";
 
 const SidebarAdmin = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  const [userName, setUserName] = useState(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -120,8 +28,11 @@ const SidebarAdmin = () => {
       } else {
         setUserRole("guest");
       }
+
+      const userEmail = localStorage.getItem("userEmail");
+      if (userEmail) setUserName(userEmail);
     } catch (error) {
-      alert("Failed to parse user data:", error);
+      console.error("Failed to parse user data:", error);
       setUserRole("guest");
     }
   }, []);
@@ -141,12 +52,19 @@ const SidebarAdmin = () => {
         "areaadmin",
         "upozilaadmin",
         "unionadmin",
+        "user",
       ],
     },
     {
       href: "/admin/register",
       icon: <IoPersonAddSharp />,
       label: "দায়ী এড করা",
+      roles: ["centraladmin"],
+    },
+    {
+      href: "/admin/users",
+      icon: <MdPeople />,
+      label: "দায়ী দেখুন",
       roles: ["centraladmin"],
     },
     {
@@ -160,30 +78,11 @@ const SidebarAdmin = () => {
         "areaadmin",
         "upozilaadmin",
         "unionadmin",
+        "user",
       ],
-    },
-    {
-      custom: true,
-      label: "Role Management",
-      roles: [
-        "centraladmin",
-        "divisionadmin",
-        "districtadmin",
-        "areaadmin",
-        "upozilaadmin",
-        "unionadmin",
-      ],
-      content: (
-        <Stack spacing={2}>
-          <Box sx={{ minHeight: 252, minWidth: 150 }}>
-            <SimpleTreeView>{renderTree(MUI_X_PRODUCTS)}</SimpleTreeView>
-          </Box>
-        </Stack>
-      ),
     },
   ];
 
-  // Filter menu items based on the user's role
   const filteredMenuItems = allMenuItems.filter((item) =>
     item.roles.includes(userRole)
   );
@@ -191,8 +90,8 @@ const SidebarAdmin = () => {
   return (
     <aside
       className={`flex flex-col ${
-        isCollapsed ? "w-[68px]" : "w-auto"
-      } transition-width duration-500 h-screen border border-r border-[#0f3e4d] bg-[#155E75] `}
+        isCollapsed ? "w-[68px]" : "w-60"
+      } transition-width duration-500 h-screen border border-r border-[#0f3e4d] bg-[#155E75]`}
     >
       <div className="p-4 text-right">
         <button
@@ -201,44 +100,48 @@ const SidebarAdmin = () => {
           aria-label={isCollapsed ? "Expand menu" : "Collapse menu"}
           className="text-white focus:outline-none"
         >
-          {isCollapsed ? <LuArrowRightToLine /> : <LuArrowLeftFromLine />}
+          {isCollapsed ? (
+            <LuArrowRightToLine className="size-6" />
+          ) : (
+            <LuArrowLeftFromLine className="size-6" />
+          )}
         </button>
       </div>
 
-      <nav className="p-4 grow overflow-y-auto mx-auto">
+      <nav className="p-4 grow overflow-y-auto">
         {userRole ? (
           <ul className="space-y-2">
-            {filteredMenuItems.map(
-              ({ href, icon, label, custom, content }, index) =>
-                custom ? (
-                  <li key={`custom-${index}`} className="text-white">
-                    <div className=" font-bold mb-4">{label}</div>
-                    {content}
-                  </li>
-                ) : (
-                  <li key={`menu-${href}`}>
-                    <Link
-                      href={href}
-                      className={`flex py-2 px-2 items-center font-xl ${
-                        isCollapsed ? "gap-0" : "gap-3"
-                      } whitespace-nowrap ${
-                        isActive(href)
-                          ? "bg-cyan-600 rounded-md text-white"
-                          : "hover:text-white text-white/80"
-                      }`}
-                      aria-current={isActive(href) ? "page" : undefined}
-                    >
-                      <div>{icon}</div>
-                      <span
-                        className={`text-sm ${
-                          isCollapsed ? "hidden" : "block"
-                        }`}
-                      >
-                        {label}
-                      </span>
-                    </Link>
-                  </li>
-                )
+            {filteredMenuItems.map(({ href, icon, label }) => (
+              <Link
+                href={href}
+                key={href}
+                className={`flex py-2 px-2 items-center font-medium ${
+                  isCollapsed ? "gap-0" : "gap-3"
+                } whitespace-nowrap ${
+                  isActive(href)
+                    ? "bg-cyan-600 rounded-md text-white"
+                    : "hover:text-white text-white/80"
+                }`}
+                aria-current={isActive(href) ? "page" : undefined}
+              >
+                <div className="size-5">{icon}</div>
+                <li className={`text-sm ${isCollapsed ? "hidden" : "block"}`}>
+                  {label}
+                </li>
+              </Link>
+            ))}
+
+            <p className="text-white font-bold text-xl pt-2">Role Management</p>
+
+            {/* Additional Item with Name Role Permission */}
+            {userName && (
+              <li
+                className={`py-2 px-2 items-center font-medium ${
+                  isCollapsed ? "gap-0" : "gap-3"
+                } text-white`}
+              >
+                <OnItemClick loggedInUser={userName} />
+              </li>
             )}
           </ul>
         ) : (
@@ -254,6 +157,7 @@ export default SidebarAdmin;
 // "use client";
 // import React, { useEffect, useState } from "react";
 // import { IoPersonAddSharp } from "react-icons/io5";
+// import { MdPeople } from "react-icons/md";
 // import { FcAcceptDatabase } from "react-icons/fc";
 // import {
 //   LuArrowLeftFromLine,
@@ -263,55 +167,6 @@ export default SidebarAdmin;
 
 // import Link from "next/link";
 // import { usePathname } from "next/navigation";
-// import TreeView from "react-treeview";
-// import "react-treeview/react-treeview.css";
-
-// const rolesData = [
-//   {
-//     label: "Zisan",
-
-//     collapsed: true,
-//     children: [
-//       {
-//         label: "user Faysal",
-//         id: "3",
-//         collapsed: true,
-//         children: [],
-//       },
-//       {
-//         label: "user Juwel",
-//         id: "4",
-//         collapsed: true,
-//         children: [],
-//       },
-//     ],
-//   },
-// ];
-
-// const renderTreeView = (nodes) => {
-//   return nodes.map((node, index) => (
-//     <TreeView
-//       key={index}
-//       nodeLabel={
-//         node.id ? (
-//           <Link href={`/admin/users/${node.id}`}>
-//             <span className="font-medium text-blue-500 hover:underline">
-//               {node.label}
-//             </span>
-//           </Link>
-//         ) : (
-//           <span className="font-medium">{node.label}</span>
-//         )
-//       }
-//       defaultCollapsed={node.collapsed}
-//       treeViewClassName="my-2"
-//     >
-//       {node.children.length > 0 && (
-//         <div className="ml-4">{renderTreeView(node.children)}</div>
-//       )}
-//     </TreeView>
-//   ));
-// };
 
 // const SidebarAdmin = () => {
 //   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -327,7 +182,7 @@ export default SidebarAdmin;
 //         setUserRole("guest");
 //       }
 //     } catch (error) {
-//       alert("Failed to parse user data:", error);
+//       console.error("Failed to parse user data:", error);
 //       setUserRole("guest");
 //     }
 //   }, []);
@@ -346,7 +201,7 @@ export default SidebarAdmin;
 //         "districtadmin",
 //         "areaadmin",
 //         "upozilaadmin",
-//         "unionadmin",
+//         "user",
 //       ],
 //     },
 //     {
@@ -354,6 +209,19 @@ export default SidebarAdmin;
 //       icon: <IoPersonAddSharp />,
 //       label: "দায়ী এড করা",
 //       roles: ["centraladmin"],
+//     },
+//     {
+//       href: "/admin/users",
+//       icon: <MdPeople />,
+//       label: "দায়ী দেখুন",
+//       roles: [
+//         "centraladmin",
+//         "divisionadmin",
+//         "districtadmin",
+//         "areaadmin",
+//         "upozilaadmin",
+//         "user",
+//       ],
 //     },
 //     {
 //       href: "/admin/notification",
@@ -365,25 +233,11 @@ export default SidebarAdmin;
 //         "districtadmin",
 //         "areaadmin",
 //         "upozilaadmin",
-//         "unionadmin",
+//         "user",
 //       ],
-//     },
-//     {
-//       custom: true, // Indicates a custom content section
-//       label: "Role Management",
-//       roles: [
-//         "centraladmin",
-//         "divisionadmin",
-//         "districtadmin",
-//         "areaadmin",
-//         "upozilaadmin",
-//         "unionadmin",
-//       ],
-//       content: <div className="mr-2">{renderTreeView(rolesData)}</div>,
 //     },
 //   ];
 
-//   // Filter menu items based on the user's role
 //   const filteredMenuItems = allMenuItems.filter((item) =>
 //     item.roles.includes(userRole)
 //   );
@@ -391,8 +245,8 @@ export default SidebarAdmin;
 //   return (
 //     <aside
 //       className={`flex flex-col ${
-//         isCollapsed ? "w-[68px]" : "w-auto"
-//       } transition-width duration-500 h-screen border border-r border-[#0f3e4d] bg-[#155E75] `}
+//         isCollapsed ? "w-[68px]" : "w-52"
+//       } transition-width duration-500 h-screen border border-r border-[#0f3e4d] bg-[#155E75]`}
 //     >
 //       <div className="p-4 text-right">
 //         <button
@@ -401,45 +255,36 @@ export default SidebarAdmin;
 //           aria-label={isCollapsed ? "Expand menu" : "Collapse menu"}
 //           className="text-white focus:outline-none"
 //         >
-//           {isCollapsed ? <LuArrowRightToLine /> : <LuArrowLeftFromLine />}
+//           {isCollapsed ? (
+//             <LuArrowRightToLine className="size-6" />
+//           ) : (
+//             <LuArrowLeftFromLine className="size-6" />
+//           )}
 //         </button>
 //       </div>
 
-//       <nav className="p-4 grow overflow-y-auto mx-auto">
+//       <nav className="p-4 grow overflow-y-auto">
 //         {userRole ? (
 //           <ul className="space-y-2">
-//             {filteredMenuItems.map(
-//               ({ href, icon, label, custom, content }, index) =>
-//                 custom ? (
-//                   <li key={`custom-${index}`} className="text-white">
-//                     <div className="text-lg font-bold mb-4">{label}</div>
-//                     {content}
-//                   </li>
-//                 ) : (
-//                   <li key={`menu-${href}`}>
-//                     <Link
-//                       href={href}
-//                       className={`flex py-2 px-2 items-center font-medium ${
-//                         isCollapsed ? "gap-0" : "gap-3"
-//                       } whitespace-nowrap ${
-//                         isActive(href)
-//                           ? "bg-cyan-600 rounded-md text-white"
-//                           : "hover:text-white text-white/80"
-//                       }`}
-//                       aria-current={isActive(href) ? "page" : undefined}
-//                     >
-//                       <div>{icon}</div>
-//                       <span
-//                         className={`text-sm ${
-//                           isCollapsed ? "hidden" : "block"
-//                         }`}
-//                       >
-//                         {label}
-//                       </span>
-//                     </Link>
-//                   </li>
-//                 )
-//             )}
+//             {filteredMenuItems.map(({ href, icon, label }) => (
+//               <Link
+//                 href={href}
+//                 key={href}
+//                 className={`flex py-2 px-2 items-center font-medium ${
+//                   isCollapsed ? "gap-0" : "gap-3"
+//                 } whitespace-nowrap ${
+//                   isActive(href)
+//                     ? "bg-cyan-600 rounded-md text-white"
+//                     : "hover:text-white text-white/80"
+//                 }`}
+//                 aria-current={isActive(href) ? "page" : undefined}
+//               >
+//                 <div className="size-5">{icon}</div>
+//                 <li className={`text-sm ${isCollapsed ? "hidden" : "block"}`}>
+//                   {label}
+//                 </li>
+//               </Link>
+//             ))}
 //           </ul>
 //         ) : (
 //           <div className="text-white text-center">Loading...</div>

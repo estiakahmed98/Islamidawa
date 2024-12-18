@@ -42,7 +42,7 @@ export default function LoginForm() {
             router.push("/admin");
             break;
           case "daye":
-            router.push("/dashboard/daye_user");
+            router.push("/dashboard");
             break;
           case "divisionadmin":
             router.push("/admin");
